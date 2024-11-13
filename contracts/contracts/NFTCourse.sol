@@ -7,6 +7,16 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./interfaces/ILenomyNFTCourse.sol";
 
 contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
+    /// @notice Course Data
+    struct CourseData {
+        string name;
+        string symbol;
+        address creator;
+        string description;
+        uint256 price;
+        string encryptedCID;
+    }
+
     /// @notice The role for the nft course manager
     bytes32 public constant CREATOR_MANAGER_ROLE =
         keccak256("COURSE_MANAGER_ROLE");
@@ -67,7 +77,9 @@ contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     function accessCourse() external override {}
 
     /// @inheritdoc ILenomyNFTCourseActions
-    function mint(address learner) external override onlyRole(CREATOR_MANAGER_ROLE) {
+    function mint(
+        address learner
+    ) external override onlyRole(CREATOR_MANAGER_ROLE) {
         _safeMint(learner, _nextTokenId);
         _nextTokenId += 1;
     }
