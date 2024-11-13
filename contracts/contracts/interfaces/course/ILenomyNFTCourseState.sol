@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-/// @title The interface for the Lenony Course State
+/// @title The interface for the Lenomy Course State
 interface ILenomyNFTCourseState {
     /// @notice Creator
     /// @dev This value can overflow the 32 bytes
