@@ -44,20 +44,68 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
         emit ItemsListed(msg.sender, _nftCourseAddress, _tokenId, _price);
     }
 
-    function cancelListing(address _nftCourseAddress) external override {}
+    function cancelListing(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) external override isOwner(_nftCourseAddress, _tokenId, msg.sender) {
+        Listing memory listing = listings[_nftCourseAddress][_tokenId];
+        if (listing.seller == address(0)) {
+            revert NotListed(_nftCourseAddress, _tokenId);
+        }
 
-    function buyItem(address _nftCourseAddress) external payable override {}
+        delete listings[_nftCourseAddress][_tokenId];
+
+        emit ItemCancelled(msg.sender, _nftCourseAddress, _tokenId);
+    }
+
+    function buyItem(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) public payable override {
+        Listing memory listing = listings[_nftCourseAddress][_tokenId];
+        if (listing.seller == address(0)) {
+            revert NotListed(_nftCourseAddress, _tokenId);
+        }
+
+        if (msg.value < listing.price) {
+            revert PriceNotMet(_nftCourseAddress, _tokenId, listing.price);
+        }
+
+        NFTCourse nftCourse = NFTCourse(_nftCourseAddress);
+        nftCourse.safeTransferFrom(msg.sender, listing.seller, _tokenId);
+
+        proceeds[_nftCourseAddress] += msg.value;
+        delete listings[_nftCourseAddress][_tokenId];
+
+        emit ItemBought(msg.sender, _nftCourseAddress, _tokenId, msg.value);
+    }
 
     function updateListingPrice(
         address _nftCourseAddress,
+        uint256 _tokenId,
         uint256 _price
-    ) external override {}
+    ) external override isOwner(_nftCourseAddress, _tokenId, msg.sender) {
+        Listing storage listing = listings[_nftCourseAddress][_tokenId];
+        if (listing.seller == address(0)) {
+            revert NotListed(_nftCourseAddress, _tokenId);
+        }
+
+        listing.price = _price;
+    }
 
     function getListingPrice(
         address _nftCourseAddress
     ) external view override returns (uint256) {}
 
-    function withdraw() external override {}
+    function withdraw() external override {
+        uint256 proceedsAmount = proceeds[msg.sender];
+        if (proceedsAmount == 0) {
+            revert NoProceeds();
+        }
+
+        payable(msg.sender).transfer(proceedsAmount);
+        proceeds[msg.sender] = 0;
+    }
 
     /// @notice Check owner
     /// @param _nftCourseAddress The address of the NFT course
@@ -73,6 +121,16 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
 
         if (owner != _caller) {
             revert NotOwner();
+        }
+        _;
+    }
+
+    /// @notice Check creator
+    /// @param _nftCourseAddress The address of the NFT course
+    modifier isCreator(address _nftCourseAddress) {
+        NFTCourse nftCourse = NFTCourse(_nftCourseAddress);
+        if (nftCourse.creator() != msg.sender) {
+            revert NotCreator();
         }
         _;
     }

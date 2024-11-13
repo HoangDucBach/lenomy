@@ -7,21 +7,35 @@ interface ILenomyMarketplaceActions {
     /// @param  _nftCourseAddress The address of the NFT course
     /// @param _tokenId The token ID of the item
     /// @param _price The price of the item
-    function listItem(address _nftCourseAddress, uint256 _tokenId, uint256 _price) external;
+    function listItem(
+        address _nftCourseAddress,
+        uint256 _tokenId,
+        uint256 _price
+    ) external;
 
     /// @notice Cancel listing
     /// @param _nftCourseAddress The address of the NFT course
-    function cancelListing(address _nftCourseAddress) external;
+    /// @param _tokenId The token ID of the item
+    function cancelListing(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) external;
 
     /// @notice Buy item
     /// @param _nftCourseAddress The address of the NFT course
-    function buyItem(address _nftCourseAddress) external payable;
+    /// @param _tokenId The token ID of the item
+    function buyItem(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) external payable;
 
     /// @notice Update listing price
     /// @param _nftCourseAddress The address of the NFT course
+    /// @param _tokenId The token ID of the item
     /// @param _price The price of the item
     function updateListingPrice(
         address _nftCourseAddress,
+        uint256 _tokenId,
         uint256 _price
     ) external;
 
