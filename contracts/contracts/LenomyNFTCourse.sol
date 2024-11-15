@@ -15,6 +15,8 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         string description;
         uint256 price;
         string encryptedCID;
+        uint256 rentalPricePerSecond;
+        uint256 rentalPeriod;
     }
 
     /// @notice The role for the nft course manager
@@ -40,13 +42,24 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     /// @inheritdoc ILenomyNFTCourseState
     string public override encryptedCID;
 
+    /// @inheritdoc ILenomyNFTCourseState
+    uint256 public override rentalPricePerSecond;
+
+    /// @inheritdoc ILenomyNFTCourseState
+    uint256 public override rentalPeriod;
+
+    /// @inheritdoc ILenomyNFTCourseState
+    mapping(address => PrivilegesRole) public override learnerPrivileges;
+
     constructor(
         string memory _name,
         string memory _symbol,
         address _creator,
         string memory _description,
         uint256 _price,
-        string memory _encryptedCID
+        string memory _encryptedCID,
+        uint256 _rentalPricePerSecond,
+        uint256 _rentalPeriod
     ) ERC721(_name, _symbol) {
         _grantRole(CREATOR_MANAGER_ROLE, _creator);
         _grantRole(COURSE_MANAGER_ROLE, address(this));
@@ -55,22 +68,14 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         description = _description;
         price = _price;
         encryptedCID = _encryptedCID;
+        rentalPricePerSecond = _rentalPricePerSecond;
+        rentalPeriod = _rentalPeriod;
     }
 
     function supportsInterface(
         bytes4 interfaceId
     ) public view virtual override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
-    }
-
-    /// @inheritdoc ILenomyNFTCourseActions
-    function buyCourse() external payable override {
-        require(msg.value == price, "LenomyNFTCourse: invalid price");
-
-        payable(creator).transfer(msg.value);
-
-        _safeMint(msg.sender, nextTokenId);
-        nextTokenId += 1;
     }
 
     /// @inheritdoc ILenomyNFTCourseActions

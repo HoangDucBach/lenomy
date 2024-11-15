@@ -20,7 +20,9 @@ contract LenomyNFTCourseFactory is ILenomyNFTCourseFactory {
             _courseData.creator,
             _courseData.description,
             _courseData.price,
-            _courseData.encryptedCID
+            _courseData.encryptedCID,
+            _courseData.rentalPricePerSecond,
+            _courseData.rentalPeriod
         );
 
         courses[address(course)] = _courseData;

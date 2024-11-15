@@ -29,6 +29,16 @@ interface ILenomyMarketplaceActions {
         uint256 _tokenId
     ) external payable;
 
+    /// @notice Rent item
+    /// @param _nftCourseAddress The address of the NFT course
+    /// @param _tokenId The token ID of the item
+    function rentItem(address _nftCourseAddress, uint256 _tokenId) external;
+
+    /// @notice Return item
+    /// @param _nftCourseAddress The address of the NFT course
+    /// @param _tokenId The token ID of the item
+    function returnItem(address _nftCourseAddress, uint256 _tokenId) external;
+
     /// @notice Update listing price
     /// @param _nftCourseAddress The address of the NFT course
     /// @param _tokenId The token ID of the item
