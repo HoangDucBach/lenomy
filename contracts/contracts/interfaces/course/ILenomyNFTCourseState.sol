@@ -15,7 +15,10 @@ interface ILenomyNFTCourseState {
     function price() external view returns (uint256);
 
     /// @notice Encrypt CID of the course content on IPFS
-    /// Only owner can know the CID, all learners buy the course without knowing the CID, 
+    /// Only owner can know the CID, all learners buy the course without knowing the CID,
     /// they will access the view content through the contract (if pass access control)
     function encryptedCID() external view returns (string memory);
+
+    /// @notice Get next token id
+    function nextTokenId() external view returns (uint256);
 }

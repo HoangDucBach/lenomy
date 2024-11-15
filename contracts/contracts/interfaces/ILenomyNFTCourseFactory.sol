@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import "../NFTCourse.sol";
+import "../LenomyNFTCourse.sol";
 
 /// @title The interface for the Course Factory contract
 interface ILenomyNFTCourseFactory {
@@ -26,7 +26,7 @@ interface ILenomyNFTCourseFactory {
     /// @notice Creates a new course
     /// @param _courseData The course data
     function createCourse(
-        NFTCourse.CourseData memory _courseData
+        LenomyNFTCourse.CourseData memory _courseData
     ) external returns (address);
 
     /// @notice Removes a course
@@ -38,12 +38,12 @@ interface ILenomyNFTCourseFactory {
     /// @param _courseData The course data
     function updateCourse(
         address _courseAddress,
-        NFTCourse.CourseData memory _courseData
+        LenomyNFTCourse.CourseData memory _courseData
     ) external;
 
     /// @notice Gets the course data
     /// @param _courseAddress The course address
     function getCourse(
         address _courseAddress
-    ) external view returns (NFTCourse.CourseData memory);
+    ) external view returns (LenomyNFTCourse.CourseData memory);
 }

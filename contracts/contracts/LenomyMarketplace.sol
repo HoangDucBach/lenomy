@@ -4,7 +4,7 @@ pragma solidity ^0.8.27;
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 import "./interfaces/ILenomyMarketplace.sol";
-import "./NFTCourse.sol";
+import "./LenomyNFTCourse.sol";
 
 error PriceNotMet(address nftCourseAddress, uint256 tokenId, uint256 price);
 error ItemNotForSale(address nftCourseAddress, uint256 tokenId);
@@ -30,10 +30,15 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
         external
         override
         notListed(_nftCourseAddress, _tokenId)
-        isOwner(_nftCourseAddress, _tokenId, msg.sender)
+        isOwner(_nftCourseAddress, _tokenId)
     {
         if (_price == 0) {
             revert PriceMustBeAboveZero();
+        }
+        LenomyNFTCourse nftCourse = LenomyNFTCourse(_nftCourseAddress);
+
+        if (nftCourse.getApproved(_tokenId) != address(this)) {
+            revert NotApprovedForMarketplace();
         }
 
         listings[_nftCourseAddress][_tokenId] = Listing({
@@ -41,13 +46,18 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
             seller: msg.sender
         });
 
+
+        if (nftCourse.getApproved(_tokenId) != address(this)) {
+            revert NotApprovedForMarketplace();
+        }
+
         emit ItemsListed(msg.sender, _nftCourseAddress, _tokenId, _price);
     }
 
     function cancelListing(
         address _nftCourseAddress,
         uint256 _tokenId
-    ) external override isOwner(_nftCourseAddress, _tokenId, msg.sender) {
+    ) external override isOwner(_nftCourseAddress, _tokenId) {
         Listing memory listing = listings[_nftCourseAddress][_tokenId];
         if (listing.seller == address(0)) {
             revert NotListed(_nftCourseAddress, _tokenId);
@@ -63,6 +73,12 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
         uint256 _tokenId
     ) public payable override {
         Listing memory listing = listings[_nftCourseAddress][_tokenId];
+        LenomyNFTCourse nftCourse = LenomyNFTCourse(_nftCourseAddress);
+
+        if (nftCourse.getApproved(_tokenId) != address(this)) {
+            revert NotApprovedForMarketplace();
+        }
+
         if (listing.seller == address(0)) {
             revert NotListed(_nftCourseAddress, _tokenId);
         }
@@ -71,10 +87,9 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
             revert PriceNotMet(_nftCourseAddress, _tokenId, listing.price);
         }
 
-        NFTCourse nftCourse = NFTCourse(_nftCourseAddress);
-        nftCourse.safeTransferFrom(msg.sender, listing.seller, _tokenId);
+        nftCourse.safeTransferFrom(listing.seller, msg.sender, _tokenId);
 
-        proceeds[_nftCourseAddress] += msg.value;
+        proceeds[listing.seller] += msg.value;
         delete listings[_nftCourseAddress][_tokenId];
 
         emit ItemBought(msg.sender, _nftCourseAddress, _tokenId, msg.value);
@@ -84,7 +99,7 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
         address _nftCourseAddress,
         uint256 _tokenId,
         uint256 _price
-    ) external override isOwner(_nftCourseAddress, _tokenId, msg.sender) {
+    ) external override isOwner(_nftCourseAddress, _tokenId) {
         Listing storage listing = listings[_nftCourseAddress][_tokenId];
         if (listing.seller == address(0)) {
             revert NotListed(_nftCourseAddress, _tokenId);
@@ -110,25 +125,30 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
     /// @notice Check owner
     /// @param _nftCourseAddress The address of the NFT course
     /// @param _tokenID The token ID of the item
-    /// @param _caller The caller
-    modifier isOwner(
-        address _nftCourseAddress,
-        uint256 _tokenID,
-        address _caller
-    ) {
-        NFTCourse nftCourse = NFTCourse(_nftCourseAddress);
+    modifier isOwner(address _nftCourseAddress, uint256 _tokenID) {
+        require(
+            _nftCourseAddress != address(0),
+            "Invalid NFT contract address"
+        );
+        require(_tokenID != 0, "Invalid token ID");
+
+        LenomyNFTCourse nftCourse = LenomyNFTCourse(_nftCourseAddress);
+
+        nftCourse.ownerOf(_tokenID);
         address owner = nftCourse.ownerOf(_tokenID);
 
-        if (owner != _caller) {
+        if (owner != msg.sender) {
             revert NotOwner();
         }
+
         _;
     }
 
     /// @notice Check creator
     /// @param _nftCourseAddress The address of the NFT course
     modifier isCreator(address _nftCourseAddress) {
-        NFTCourse nftCourse = NFTCourse(_nftCourseAddress);
+        LenomyNFTCourse nftCourse = LenomyNFTCourse(_nftCourseAddress);
+
         if (nftCourse.creator() != msg.sender) {
             revert NotCreator();
         }

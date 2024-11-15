@@ -11,5 +11,5 @@ interface ILenomyNFTCourse is
     ILenomyNFTCourseEvents,
     ILenomyNFTCourseState
 {
-
+ 
 }

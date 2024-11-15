@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 import "./interfaces/ILenomyNFTCourse.sol";
 
-contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
+contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     /// @notice Course Data
     struct CourseData {
         string name;
@@ -26,7 +26,7 @@ contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         keccak256("COURSE_MANAGER_ROLE");
 
     /// @notice The next token id (known as the next learner)
-    uint256 private _nextTokenId;
+    uint256 public override nextTokenId;
 
     /// @inheritdoc ILenomyNFTCourseState
     address public override creator;
@@ -50,7 +50,7 @@ contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     ) ERC721(_name, _symbol) {
         _grantRole(CREATOR_MANAGER_ROLE, _creator);
         _grantRole(COURSE_MANAGER_ROLE, address(this));
-        _nextTokenId = 1;
+        nextTokenId = 1;
         creator = _creator;
         description = _description;
         price = _price;
@@ -65,12 +65,12 @@ contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
 
     /// @inheritdoc ILenomyNFTCourseActions
     function buyCourse() external payable override {
-        require(msg.value == price, "NFTCourse: invalid price");
+        require(msg.value == price, "LenomyNFTCourse: invalid price");
 
         payable(creator).transfer(msg.value);
 
-        _safeMint(msg.sender, _nextTokenId);
-        _nextTokenId += 1;
+        _safeMint(msg.sender, nextTokenId);
+        nextTokenId += 1;
     }
 
     /// @inheritdoc ILenomyNFTCourseActions
@@ -80,7 +80,7 @@ contract NFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     function mint(
         address learner
     ) external override onlyRole(CREATOR_MANAGER_ROLE) {
-        _safeMint(learner, _nextTokenId);
-        _nextTokenId += 1;
+        _safeMint(learner, nextTokenId);
+        nextTokenId += 1;
     }
 }
