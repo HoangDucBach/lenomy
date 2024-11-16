@@ -1,14 +1,16 @@
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import { expect } from "chai";
 import hre from "hardhat";
+import { LenomyNFTCourse } from "../typechain-types/contracts/LenomyNFTCourseFactory";
+
 
 describe("LenomyNFTCourseFactory", function () {
     async function deployCourseFactoryFixture() {
         const [owner, otherAccount] = await hre.ethers.getSigners();
 
         const LenomyNFTCourseFactory = await hre.ethers.getContractFactory("LenomyNFTCourseFactory");
-        const factory = await LenomyNFTCourseFactory.deploy();
 
+        const factory = await LenomyNFTCourseFactory.deploy();
         return { factory, owner, otherAccount };
     }
 
@@ -19,8 +21,11 @@ describe("LenomyNFTCourseFactory", function () {
             creator: owner.address,
             description: "A test course",
             price: 1000,
-            encryptedCID: "QmTest"
-        };
+            encryptedCID: "QmTest",
+            rentalUnitPrice: 1,
+            rentalUnitTimestamp: 60
+
+        } satisfies LenomyNFTCourse.CourseDataStruct;
     }
 
     describe("Deployment", function () {
@@ -32,7 +37,7 @@ describe("LenomyNFTCourseFactory", function () {
     });
 
     describe("Course Management", function () {
-        it("Should create a course", async function () {
+        it("Should create a course  ", async function () {
             const { factory, owner } = await loadFixture(deployCourseFactoryFixture);
 
             const courseData = getCourseData(owner);

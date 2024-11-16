@@ -31,10 +31,10 @@ interface ILenomyNFTCourseState {
     function price() external view returns (uint256);
 
     /// @notice Get rental price per second (for renting)
-    function rentalPricePerSecond() external view returns (uint256);
+    function rentalUnitPrice() external view returns (uint256);
 
     /// @notice Get rental period in seconds (for renting)
-    function rentalPeriod() external view returns (uint256);
+    function rentalUnitTimestamp() external view returns (uint256);
 
     /// @notice Mapping learner address to priveleges role
     function learnerPrivileges(address) external view returns (PrivilegesRole);

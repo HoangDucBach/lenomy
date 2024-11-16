@@ -15,8 +15,8 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         string description;
         uint256 price;
         string encryptedCID;
-        uint256 rentalPricePerSecond;
-        uint256 rentalPeriod;
+        uint256 rentalUnitPrice;
+        uint256 rentalUnitTimestamp;
     }
 
     /// @notice The role for the nft course manager
@@ -43,10 +43,10 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
     string public override encryptedCID;
 
     /// @inheritdoc ILenomyNFTCourseState
-    uint256 public override rentalPricePerSecond;
+    uint256 public override rentalUnitPrice;
 
     /// @inheritdoc ILenomyNFTCourseState
-    uint256 public override rentalPeriod;
+    uint256 public override rentalUnitTimestamp;
 
     /// @inheritdoc ILenomyNFTCourseState
     mapping(address => PrivilegesRole) public override learnerPrivileges;
@@ -58,8 +58,8 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         string memory _description,
         uint256 _price,
         string memory _encryptedCID,
-        uint256 _rentalPricePerSecond,
-        uint256 _rentalPeriod
+        uint256 _rentalUnitPrice,
+        uint256 _rentalUnitTimestamp
     ) ERC721(_name, _symbol) {
         _grantRole(CREATOR_MANAGER_ROLE, _creator);
         _grantRole(COURSE_MANAGER_ROLE, address(this));
@@ -68,8 +68,8 @@ contract LenomyNFTCourse is ERC721, ILenomyNFTCourse, AccessControl {
         description = _description;
         price = _price;
         encryptedCID = _encryptedCID;
-        rentalPricePerSecond = _rentalPricePerSecond;
-        rentalPeriod = _rentalPeriod;
+        rentalUnitPrice = _rentalUnitPrice;
+        rentalUnitTimestamp = _rentalUnitTimestamp;
     }
 
     function supportsInterface(

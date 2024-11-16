@@ -95,6 +95,18 @@ contract LenomyMarketplace is ILenomyMarketplace, ReentrancyGuard {
         emit ItemBought(msg.sender, _nftCourseAddress, _tokenId, msg.value);
     }
 
+    function rentItem(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) external override {
+    }
+
+    function returnItem(
+        address _nftCourseAddress,
+        uint256 _tokenId
+    ) external override {
+    }
+
     function updateListingPrice(
         address _nftCourseAddress,
         uint256 _tokenId,

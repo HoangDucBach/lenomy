@@ -1,6 +1,7 @@
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import { expect } from "chai";
 import hre from "hardhat";
+import { LenomyNFTCourse } from "../typechain-types/contracts/LenomyNFTCourseFactory";
 
 describe("LenomyMarketplace", function () {
     async function deployMarketplaceFixture() {
@@ -23,8 +24,10 @@ describe("LenomyMarketplace", function () {
             creator: owner.address,
             description: "A test course",
             price: 1000,
-            encryptedCID: "QmTest"
-        };
+            encryptedCID: "QmTest",
+            rentalUnitPrice: 1,
+            rentalUnitTimestamp: 60,
+        } satisfies LenomyNFTCourse.CourseDataStruct;
 
         const tx = await factory.createCourse(courseData);
         await tx.wait();

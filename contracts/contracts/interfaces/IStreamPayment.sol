@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import "./streaming-payments/IStreamingPaymentsActions.sol";
-import "./streaming-payments/IStreamingPaymentsState.sol";
-import "./streaming-payments/IStreamingPaymentsEvents.sol";
+import "./streaming-payments/IStreamingPaymentActions.sol";
+import "./streaming-payments/IStreamingPaymentState.sol";
+import "./streaming-payments/IStreamingPaymentEvents.sol";
 
 /// @title The interface for the Streaming Payments contract
 interface IStreamingPayment is
