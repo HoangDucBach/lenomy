@@ -255,7 +255,7 @@ export const LandpagePinkLightSvg: React.FC<IconSvgProps> = (props) => {
           x="0"
           y="0"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             in="SourceGraphic"
             in2="BackgroundImageFix"
@@ -302,7 +302,7 @@ export const LandpagePurpleLightSvg: React.FC<IconSvgProps> = (props) => {
           x="0"
           y="0"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             in="SourceGraphic"
             in2="BackgroundImageFix"
