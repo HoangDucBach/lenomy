@@ -6,8 +6,7 @@ import { Button } from "@nextui-org/button";
 import { ethers } from "ethers";
 import { Image } from "@nextui-org/react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export function WalletConnect({ ...props }: Props) {
   const { sdk, connected, connecting, account, chainId } = useSDK();
   const [icon, setIcon] = useState<string | null>(null);
@@ -18,7 +17,7 @@ export function WalletConnect({ ...props }: Props) {
     } catch (err) {
       console.warn("failed to connect..", err);
     }
-  }
+  };
 
   const [ethBalance, setEthBalance] = useState<string | null>(null);
 
@@ -28,6 +27,7 @@ export function WalletConnect({ ...props }: Props) {
         //@ts-ignore
         const provider = new ethers.BrowserProvider(await sdk.provider);
         const balance = await provider.getBalance(account);
+
         setEthBalance(ethers.formatEther(balance));
       } catch (err) {
         console.warn("failed to fetch balance..", err);
@@ -45,15 +45,26 @@ export function WalletConnect({ ...props }: Props) {
     <>
       {account ? (
         <div className="flex flex-row gap-2 items-center">
-          <Image src={"https://assets.coingecko.com/coins/images/38058/standard/icon.png?1717626867"} width={24} height={24} alt={chainId} />
-          <p className="text-md text-foreground-500 font-medium">{ethBalance}</p>
-          <p className="text-md text-foreground font-medium">{truncate(account)}</p>
+          <Image
+            alt={chainId}
+            height={24}
+            src={
+              "https://assets.coingecko.com/coins/images/38058/standard/icon.png?1717626867"
+            }
+            width={24}
+          />
+          <p className="text-md text-foreground-500 font-medium">
+            {ethBalance}
+          </p>
+          <p className="text-md text-foreground font-medium">
+            {truncate(account)}
+          </p>
         </div>
       ) : (
-        <Button onClick={connect} radius="full" isLoading={connecting}>
+        <Button isLoading={connecting} radius="full" onClick={connect}>
           Connect Wallet
         </Button>
       )}
     </>
-  )
+  );
 }

@@ -8,14 +8,11 @@ import { Kbd } from "@nextui-org/kbd";
 import { Input } from "@nextui-org/input";
 import NextLink from "next/link";
 
-import {
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
 import { WalletConnect } from "./Metamask";
 
-export const Navbar = () => {
+import { SearchIcon, Logo } from "@/components/icons";
 
+export const Navbar = () => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -39,13 +36,14 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar
-      maxWidth="lg"
-      position="sticky"
-      isBlurred={false}
       classNames={{
         base: "bg-transparent",
-        wrapper: "bg-[#1E1E1E]/50 backdrop-blur-lg rounded-full mt-4 border border-default/25",
+        wrapper:
+          "bg-[#1E1E1E]/50 backdrop-blur-lg rounded-full mt-4 border border-default/25",
       }}
+      isBlurred={false}
+      maxWidth="lg"
+      position="sticky"
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
