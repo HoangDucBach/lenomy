@@ -18,19 +18,19 @@ export const Logo: React.FC<IconSvgProps> = ({
     <path
       d="M30.437 17.0281C31.087 16.6202 31.913 16.6202 32.563 17.0281L50.537 28.3059C51.7863 29.0898 51.7863 30.9102 50.537 31.6941L32.563 42.9719C31.913 43.3798 31.087 43.3798 30.437 42.9719L12.463 31.6941C11.2137 30.9102 11.2137 29.0898 12.463 28.3059L30.437 17.0281Z"
       stroke="white"
-      stroke-width="4"
+      strokeWidth="4"
     />
     <path
       d="M53.8125 38L34.6875 50"
       stroke="white"
-      stroke-lineCap="round"
-      stroke-width="4"
+      strokeLinecap="round"
+      strokeWidth="4"
     />
     <path
       d="M28.3125 50L9.1875 38"
       stroke="white"
-      stroke-lineCap="round"
-      stroke-width="4"
+      strokeLinecap="round"
+      strokeWidth="4"
     />
   </svg>
 );
@@ -162,9 +162,9 @@ export const HeartFilledIcon = ({
     <path
       d="M12.62 20.81c-.34.12-.9.12-1.24 0C8.48 19.82 2 15.69 2 8.69 2 5.6 4.49 3.1 7.56 3.1c1.82 0 3.43.88 4.44 2.24a5.53 5.53 0 0 1 4.44-2.24C19.51 3.1 22 5.6 22 8.69c0 7-6.48 11.13-9.38 12.12Z"
       fill="currentColor"
-      stroke-lineCap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-width={1.5}
+      strokeWidth={1.5}
     />
   </svg>
 );
@@ -183,16 +183,16 @@ export const SearchIcon = (props: IconSvgProps) => (
     <path
       d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
       stroke="currentColor"
-      stroke-lineCap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <path
       d="M22 22L20 20"
       stroke="currentColor"
-      stroke-lineCap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-width="2"
+      strokeWidth="2"
     />
   </svg>
 );
@@ -242,12 +242,12 @@ export const LandpagePinkLightSvg: React.FC<IconSvgProps> = (props) => {
           cy="418.5"
           r="158.5"
           stroke="#F7B4FF"
-          stroke-width="8"
+          strokeWidth="8"
         />
       </g>
       <defs>
         <filter
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
           filterUnits="userSpaceOnUse"
           height="837"
           id="filter0_f_4717_150"
@@ -289,12 +289,12 @@ export const LandpagePurpleLightSvg: React.FC<IconSvgProps> = (props) => {
           cy="418.5"
           r="158.5"
           stroke="#CEB6FF"
-          stroke-width="8"
+          strokeWidth="8"
         />
       </g>
       <defs>
         <filter
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
           filterUnits="userSpaceOnUse"
           height="837"
           id="filter0_f_4704_7351"
