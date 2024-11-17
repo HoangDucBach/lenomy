@@ -25,8 +25,8 @@ export function WalletConnect({ ...props }: Props) {
     const fetchBalance = async () => {
         if (sdk && account) {
             try {
-                const provider = new ethers.BrowserProvider(sdk.getProvider() as ethers.Eip1193Provider);
-                const balance = await provider.getBalance(account);
+                const provider = new ethers.BrowserProvider(await sdk.provider);
+              const balance = await provider.getBalance(account);
                 setEthBalance(ethers.formatEther(balance));
             } catch (err) {
                 console.warn("failed to fetch balance..", err);
