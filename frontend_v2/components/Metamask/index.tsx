@@ -6,8 +6,12 @@ import { Button } from "@nextui-org/button";
 import { ethers } from "ethers";
 import { Image } from "@nextui-org/react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 export function WalletConnect({ ...props }: Props) {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   const { sdk, connected, connecting, account, chainId } = useSDK();
   const [icon, setIcon] = useState<string | null>(null);
   const truncate = (str: string) => str.slice(0, 6) + "..." + str.slice(-4);
@@ -18,8 +22,8 @@ export function WalletConnect({ ...props }: Props) {
       console.warn("failed to connect..", err);
     }
   };
-
   const [ethBalance, setEthBalance] = useState<string | null>(null);
+
 
   const fetchBalance = async () => {
     if (sdk && account) {
@@ -40,6 +44,7 @@ export function WalletConnect({ ...props }: Props) {
       fetchBalance();
     }
   }, [account]);
+
 
   return (
     <>
