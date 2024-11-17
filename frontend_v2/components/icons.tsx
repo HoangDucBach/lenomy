@@ -15,9 +15,23 @@ export const Logo: React.FC<IconSvgProps> = ({
     width={size || width}
     {...props}
   >
-    <path d="M30.437 17.0281C31.087 16.6202 31.913 16.6202 32.563 17.0281L50.537 28.3059C51.7863 29.0898 51.7863 30.9102 50.537 31.6941L32.563 42.9719C31.913 43.3798 31.087 43.3798 30.437 42.9719L12.463 31.6941C11.2137 30.9102 11.2137 29.0898 12.463 28.3059L30.437 17.0281Z" stroke="white" stroke-width="4" />
-    <path d="M53.8125 38L34.6875 50" stroke="white" stroke-width="4" stroke-linecap="round" />
-    <path d="M28.3125 50L9.1875 38" stroke="white" stroke-width="4" stroke-linecap="round" />
+    <path
+      d="M30.437 17.0281C31.087 16.6202 31.913 16.6202 32.563 17.0281L50.537 28.3059C51.7863 29.0898 51.7863 30.9102 50.537 31.6941L32.563 42.9719C31.913 43.3798 31.087 43.3798 30.437 42.9719L12.463 31.6941C11.2137 30.9102 11.2137 29.0898 12.463 28.3059L30.437 17.0281Z"
+      stroke="white"
+      strokeWidth="4"
+    />
+    <path
+      d="M53.8125 38L34.6875 50"
+      stroke="white"
+      strokeLinecap="round"
+      strokeWidth="4"
+    />
+    <path
+      d="M28.3125 50L9.1875 38"
+      stroke="white"
+      strokeLinecap="round"
+      strokeWidth="4"
+    />
   </svg>
 );
 
@@ -213,38 +227,94 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
 
 export const LandpagePinkLightSvg: React.FC<IconSvgProps> = (props) => {
   return (
-    <svg width="837" height="837" viewBox="0 0 837 837" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      fill="none"
+      height="837"
+      viewBox="0 0 837 837"
+      width="837"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <g filter="url(#filter0_f_4717_150)">
-        <circle cx="418.5" cy="418.5" r="162.5" fill="#9732A3" />
-        <circle cx="418.5" cy="418.5" r="158.5" stroke="#F7B4FF" stroke-width="8" />
+        <circle cx="418.5" cy="418.5" fill="#9732A3" r="162.5" />
+        <circle
+          cx="418.5"
+          cy="418.5"
+          r="158.5"
+          stroke="#F7B4FF"
+          strokeWidth="8"
+        />
       </g>
       <defs>
-        <filter id="filter0_f_4717_150" x="0" y="0" width="837" height="837" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur stdDeviation="128" result="effect1_foregroundBlur_4717_150" />
+        <filter
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+          height="837"
+          id="filter0_f_4717_150"
+          width="837"
+          x="0"
+          y="0"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            mode="normal"
+            result="shape"
+          />
+          <feGaussianBlur
+            result="effect1_foregroundBlur_4717_150"
+            stdDeviation="128"
+          />
         </filter>
       </defs>
     </svg>
-
   );
-}
+};
 
 export const LandpagePurpleLightSvg: React.FC<IconSvgProps> = (props) => {
   return (
-    <svg width="837" height="837" viewBox="0 0 837 837" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      fill="none"
+      height="837"
+      viewBox="0 0 837 837"
+      width="837"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <g filter="url(#filter0_f_4704_7351)">
-        <circle cx="418.5" cy="418.5" r="162.5" fill="#4F14C9" />
-        <circle cx="418.5" cy="418.5" r="158.5" stroke="#CEB6FF" stroke-width="8" />
+        <circle cx="418.5" cy="418.5" fill="#4F14C9" r="162.5" />
+        <circle
+          cx="418.5"
+          cy="418.5"
+          r="158.5"
+          stroke="#CEB6FF"
+          strokeWidth="8"
+        />
       </g>
       <defs>
-        <filter id="filter0_f_4704_7351" x="0" y="0" width="837" height="837" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur stdDeviation="128" result="effect1_foregroundBlur_4704_7351" />
+        <filter
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+          height="837"
+          id="filter0_f_4704_7351"
+          width="837"
+          x="0"
+          y="0"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            mode="normal"
+            result="shape"
+          />
+          <feGaussianBlur
+            result="effect1_foregroundBlur_4704_7351"
+            stdDeviation="128"
+          />
         </filter>
       </defs>
     </svg>
-
   );
-}
+};
