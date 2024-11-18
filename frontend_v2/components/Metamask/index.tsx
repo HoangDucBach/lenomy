@@ -1,28 +1,28 @@
 "use client";
 
 import { useSDK } from "@metamask/sdk-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@nextui-org/button";
-import { ethers } from "ethers";
 import { Image } from "@nextui-org/react";
+import { toast } from "react-toastify";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> { }
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export default function WalletConnect({ ...props }: Props) {
   const { sdk, balance, connecting, account, chainId } = useSDK();
   const fortmatBalance = (balance: string) => {
-    return ethers.formatEther(parseInt(balance).toString())
-  }
+    return parseInt(balance) / 1e18;
+  };
   const formatAddress = (address: string) => {
     return address.slice(0, 6) + "..." + address.slice(-4);
-  }
+  };
   const connect = async () => {
     try {
       await sdk?.connect();
     } catch (err) {
-      console.warn("failed to connect..", err);
+      toast.error("Failed to connect wallet");
     }
   };
-  
+
   return (
     <>
       {account ? (

@@ -5,16 +5,17 @@ import {
   NavbarContent,
   NavbarBrand,
 } from "@nextui-org/navbar";
-import { Kbd } from "@nextui-org/kbd";
-import { Input } from "@nextui-org/input";
 import NextLink from "next/link";
+import { IoMdAddCircle } from "react-icons/io";
+import { BiSolidDashboard } from "react-icons/bi";
 
 const WalletConnect = dynamic(() => import("../components/Metamask"), {
   ssr: false,
-})
+});
+
+import dynamic from "next/dynamic";
 
 import { Logo } from "@/components/icons";
-import dynamic from "next/dynamic";
 
 export const Navbar = () => {
   return (
@@ -35,6 +36,24 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Lenomy</p>
           </NextLink>
         </NavbarBrand>
+        <NextLink href="/dashboard">
+          <NavbarBrand
+            as="li"
+            className="gap-1 hover:scale-105 transition-transform duration-300 ease-in-out"
+          >
+            <BiSolidDashboard className="text-foreground-500" />
+            <p>Dashboard</p>
+          </NavbarBrand>
+        </NextLink>
+        <NextLink href="/create-course">
+          <NavbarBrand
+            as="li"
+            className="gap-1 hover:scale-105 transition-transform duration-300 ease-in-out"
+          >
+            <IoMdAddCircle className="text-foreground-500" />
+            <p>Create</p>
+          </NavbarBrand>
+        </NextLink>
       </NavbarContent>
       <NavbarContent justify="center">
         <p className="text-base text-foreground-500">Welcome to Lenomy</p>

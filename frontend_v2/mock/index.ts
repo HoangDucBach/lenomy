@@ -6,10 +6,11 @@ import {
 
 // Mock data
 export const mockCourseData: CourseData = {
-  name: "Introduction to TypeScript",
-  symbol: "TS101",
+  name: "Taiko Course -What is Taiko?",
+  symbol: "TAIKO",
   creator: "John Doe",
-  description: "A comprehensive course on TypeScript.",
+  description:
+    "Meta Description: What is Taiko? Dive into the world of this open-source ZK-Rollup, designed to solve Ethereum's scalability problems while upholding its foundational principles.",
   price: 100,
   encryptedCID: "QmTzQ1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1Y1",
   rentalUnitPrice: 10,

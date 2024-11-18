@@ -32,7 +32,7 @@ const CreateCourseForm: React.FC = () => {
 
   return (
     <form
-      className="flex flex-col gap-4 rounded-3xl bg-foreground/5 backdrop-blur-lg p-6 border-default/25"
+      className="flex flex-col gap-4 rounded-3xl bg-foreground/5 backdrop-blur-lg p-6 border border-default/25"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex gap-4 flex-row">
@@ -77,6 +77,7 @@ const CreateCourseForm: React.FC = () => {
 
       <Input
         classNames={commonClassnames}
+        description="Rental price is per minute"
         label="Rental Price"
         labelPlacement="outside"
         placeholder="Enter the rental price"
@@ -87,6 +88,7 @@ const CreateCourseForm: React.FC = () => {
 
       <Input
         classNames={commonClassnames}
+        description="IPFS document is for learner, it will be protected (prevents sharing)"
         label="IPFS"
         labelPlacement="outside"
         placeholder="Enter the IPFS link"
