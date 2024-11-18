@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -8,32 +9,14 @@ import { Kbd } from "@nextui-org/kbd";
 import { Input } from "@nextui-org/input";
 import NextLink from "next/link";
 
-import { WalletConnect } from "./Metamask";
+const WalletConnect = dynamic(() => import("../components/Metamask"), {
+  ssr: false,
+})
 
-import { SearchIcon, Logo } from "@/components/icons";
+import { Logo } from "@/components/icons";
+import dynamic from "next/dynamic";
 
 export const Navbar = () => {
-  const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
-      }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      startContent={
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      type="search"
-    />
-  );
-
   return (
     <NextUINavbar
       classNames={{

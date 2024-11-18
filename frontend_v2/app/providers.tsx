@@ -16,13 +16,15 @@ export interface ProvidersProps {
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
-
+  const host =
+    typeof window !== "undefined" ? window.location.host : "localhost:3000";
+    
   return (
     <MetaMaskProvider
       sdkOptions={{
         dappMetadata: {
           name: siteConfig.name,
-          url: window.location.href,
+          url: host
         },
         infuraAPIKey: process.env.NEXT_PUBLIC_INFURA_API_KEY,
       }}

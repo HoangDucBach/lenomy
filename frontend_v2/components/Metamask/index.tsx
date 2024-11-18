@@ -7,14 +7,14 @@ import { ethers } from "ethers";
 import { Image } from "@nextui-org/react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> { }
-export function WalletConnect({ ...props }: Props) {
-  if (typeof window === "undefined") {
-    return null;
+export default function WalletConnect({ ...props }: Props) {
+  const { sdk, balance, connecting, account, chainId } = useSDK();
+  const fortmatBalance = (balance: string) => {
+    return ethers.formatEther(parseInt(balance).toString())
   }
-
-  const { sdk, connected, connecting, account, chainId } = useSDK();
-  const [icon, setIcon] = useState<string | null>(null);
-  const truncate = (str: string) => str.slice(0, 6) + "..." + str.slice(-4);
+  const formatAddress = (address: string) => {
+    return address.slice(0, 6) + "..." + address.slice(-4);
+  }
   const connect = async () => {
     try {
       await sdk?.connect();
@@ -22,30 +22,7 @@ export function WalletConnect({ ...props }: Props) {
       console.warn("failed to connect..", err);
     }
   };
-  const [ethBalance, setEthBalance] = useState<string | null>(null);
-
-
-  const fetchBalance = async () => {
-    if (sdk && account) {
-      try {
-        //@ts-ignore
-        const provider = new ethers.BrowserProvider(await sdk.provider);
-        const balance = await provider.getBalance(account);
-
-        setEthBalance(ethers.formatEther(balance));
-      } catch (err) {
-        console.warn("failed to fetch balance..", err);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (account) {
-      fetchBalance();
-    }
-  }, [account]);
-
-
+  
   return (
     <>
       {account ? (
@@ -59,10 +36,10 @@ export function WalletConnect({ ...props }: Props) {
             width={24}
           />
           <p className="text-md text-foreground-500 font-medium">
-            {ethBalance}
+            {fortmatBalance(balance!)}
           </p>
           <p className="text-md text-foreground font-medium">
-            {truncate(account)}
+            {formatAddress(account)}
           </p>
         </div>
       ) : (
